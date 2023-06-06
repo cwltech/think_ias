@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../app/constant/constant.color.dart';
 import '../course.dart';
 import '../drawer.dart';
-import '../login.dart';
+import '../loginScreen/login.dart';
 import 'homeScreenWidget/home.screen.widget.dart';
 
 class UserHome extends StatefulWidget {
@@ -101,7 +101,7 @@ class _UserHomeState extends State<UserHome> {
             ),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()));
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
           ),
         ],
