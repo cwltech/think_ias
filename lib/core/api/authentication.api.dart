@@ -32,17 +32,16 @@ class AuthenticationAPI {
     return body;
   }
 
-  /** Login Account Function */
-  Future loginAccount(
-      {required String userEmail,
-      required String userPassword,
-      var userDI}) async {
+  /// Login Account Function */
+  Future loginAccount({
+    required String userEmail,
+    required String userPassword,
+  }) async {
     const subUrl = "https://cwltechnology.in/think-ias/ApiController/userLogin";
     final Uri uri = Uri.parse(subUrl);
     Map forBody = {};
-    forBody["email"] = userEmail;
-    forBody["user_id"] = userDI;
-    forBody["password"] = userPassword;
+    forBody["login_email"] = userEmail;
+    forBody["login_password"] = userPassword;
     final http.Response res = await client.post(uri, body: forBody);
     final dynamic body = res.body;
     print("User Login Message ======>$body ");
