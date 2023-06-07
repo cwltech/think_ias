@@ -55,7 +55,6 @@ class AuthenticationProvider with ChangeNotifier {
   }
 
 //  Login User Provider
-
   loginUserProvider(
       {required String userEmail,
       required String userPassword,

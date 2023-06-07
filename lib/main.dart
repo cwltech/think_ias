@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:think_ias/app/routes/app.routes.dart';
 import 'package:think_ias/core/Provider/authentication.provider.dart';
 
+import 'core/Provider/lists.providers.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthenticationProvider>(
-            create: (context) => AuthenticationProvider())
+            create: (context) => AuthenticationProvider()),
+        ChangeNotifierProvider<ListOfDataProvider>(
+          create: (context) => ListOfDataProvider(),
+        )
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),
