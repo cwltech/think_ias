@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:think_ias/app/constant/constant.color.dart';
 import 'package:think_ias/presentation/Screens/profileScreen/profileScreenWidget/profile.screen.widget.dart';
 
 import 'drawer.dart';
@@ -12,6 +14,17 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  // XFile? _imageFile;
+  //
+  // Future<void> selectFileFromDevice() async {
+  //   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (file != null) {
+  //     setState(() {
+  //       _imageFile = XFile(file.path);
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,52 +45,56 @@ class _UserProfileState extends State<UserProfile> {
       ),
       body: LayoutBuilder(
         builder: (context, BoxConstraints constraints) {
-          return Container(
-            // color: Colors.redAccent,
-            height: constraints.maxHeight,
-            child: SingleChildScrollView(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
-                const Center(
-                    child: CircleAvatar(
-                        radius: 75,
-                        backgroundImage: NetworkImage(
-                            'https://www.pngitem.com/pimgs/m/264-2640465_passport-size-photo-sample-hd-png-download.png'))),
-                const SizedBox(height: 20),
-                profileScreenDetailWidget("Name", "Vivek")
-              ],
-            )),
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: constraints.maxHeight,
+              child: SingleChildScrollView(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 20),
+                  Center(
+                    child: PhysicalModel(
+                      shape: BoxShape.circle,
+                      color: AppColor.primaryColor,
+                      elevation: 15,
+                      child: CircleAvatar(
+                        radius: 45.r,
+                        backgroundImage: const NetworkImage(
+                            'https://www.pngitem.com/pimgs/m/264-2640465_passport-size-photo-sample-hd-png-download.png'),
+                        child: Stack(children: <Widget>[
+                          Positioned(
+                              left: 55,
+                              top: 60.1,
+                              child: CircleAvatar(
+                                  radius: 15.r,
+                                  backgroundColor: Colors.white,
+                                  child: InkWell(
+                                    onTap: () {
+                                      //TODO : Check For Image Upload
+                                      // selectFileFromDevice();
+                                      print("Upload Image");
+                                    },
+                                    child: Icon(
+                                      Icons.camera,
+                                      color: AppColor.primaryColor,
+                                    ),
+                                  )))
+                        ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  profileScreenDetailWidget("Name", "Vivek")
+                ],
+              )),
+            ),
           );
         },
       ),
       drawer: const MyDrawer(),
     );
   }
-}
-
-InputDecoration textFieldInputDecoration(String hintText) {
-  return InputDecoration(
-      hintText: hintText,
-      hintStyle: const TextStyle(color: Colors.black),
-      focusedBorder: const UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.black),
-      ),
-      enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black)));
-}
-
-TextStyle simpleTextFieldStyle() {
-  return const TextStyle(
-    color: Colors.black,
-    fontSize: 16,
-  );
-}
-
-TextStyle mediumTextStyle() {
-  return const TextStyle(color: Colors.black, fontSize: 17);
 }

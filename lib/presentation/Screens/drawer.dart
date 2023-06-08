@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'course.dart';
+import 'courseScreen/course.dart';
 import 'feedback.dart';
 import 'ncertpdfpage.dart';
 import 'profile.dart';

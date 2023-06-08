@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'course.dart';
+import 'courseScreen/course.dart';
 import 'dashboard.dart';
 import 'homeScreen/home.dart';
 import 'profile.dart';

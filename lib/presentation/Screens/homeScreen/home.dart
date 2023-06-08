@@ -7,7 +7,7 @@ import 'package:think_ias/app/constant/app.key.dart';
 import 'package:think_ias/core/Provider/lists.providers.dart';
 
 import '../../../app/constant/constant.color.dart';
-import '../course.dart';
+import '../courseScreen/course.dart';
 import '../drawer.dart';
 import '../loginScreen/login.dart';
 import 'homeScreenWidget/home.screen.widget.dart';
@@ -166,7 +166,7 @@ class _UserHomeState extends State<UserHome> {
                             scrollDirection: Axis.horizontal,
                           ),
                           itemBuilder: (context, index, _) {
-                            var itemCurrent =
+                            var itemCurrentBanner =
                                 listofData.data!.bannerList![index];
                             return Card(
                               semanticContainer: true,
@@ -175,7 +175,7 @@ class _UserHomeState extends State<UserHome> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Image.network(
-                                itemCurrent.banner!,
+                                itemCurrentBanner.banner!,
                                 fit: BoxFit.fill,
                               ),
                             );
@@ -191,11 +191,13 @@ class _UserHomeState extends State<UserHome> {
                       GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: categoryName.length,
+                          itemCount: listofData.data!.categoryList!.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3),
                           itemBuilder: (context, index) {
+                            final itemCurrentCategory =
+                                listofData.data!.categoryList![index];
                             return InkWell(
                               onTap: () {
                                 setState(() {
@@ -208,19 +210,22 @@ class _UserHomeState extends State<UserHome> {
                               },
                               child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: firstlist(
-                                      categoryimg[index], categoryName[index])),
+                                  child: firstList(
+                                      itemCurrentCategory.categoryImage
+                                          .toString(),
+                                      itemCurrentCategory.category.toString(),
+                                      context)),
                             );
                           }),
                       Text(
-                        'Courses',
+                        'Popular Courses',
                         style: TextStyle(
-                          fontSize: 25.sp,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       CarouselSlider.builder(
-                          itemCount: category.length,
+                          itemCount: listofData.data!.popularCourseList!.length,
                           options: CarouselOptions(
                             height: MediaQuery.of(context).size.height / 1.9,
                             aspectRatio: 2,
@@ -239,6 +244,8 @@ class _UserHomeState extends State<UserHome> {
                             scrollDirection: Axis.horizontal,
                           ),
                           itemBuilder: (context, index, _) {
+                            final itemCurrentPopular =
+                                listofData.data!.popularCourseList![index];
                             return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -273,8 +280,10 @@ class _UserHomeState extends State<UserHome> {
                                                   BorderRadius.circular(10),
                                               image: DecorationImage(
                                                   fit: BoxFit.cover,
-                                                  image: AssetImage(
-                                                      "assets/images/two${index + 1}.png")),
+                                                  image: NetworkImage(
+                                                      itemCurrentPopular
+                                                          .courseImage
+                                                          .toString())),
                                             )),
                                       ),
                                       SizedBox(
@@ -284,7 +293,7 @@ class _UserHomeState extends State<UserHome> {
                                               56.h),
                                       ListTile(
                                         title: Text(
-                                          category[index],
+                                          itemCurrentPopular.course.toString(),
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             color: AppColor.headingColor,
@@ -300,7 +309,8 @@ class _UserHomeState extends State<UserHome> {
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text(
-                                              price[index],
+                                              itemCurrentPopular.price
+                                                  .toString(),
                                               style: TextStyle(
                                                 color: AppColor.priceTextColor,
                                                 fontSize: 16.0.sp,
@@ -333,103 +343,6 @@ class _UserHomeState extends State<UserHome> {
                                   ),
                                 ));
                           }),
-                      // Expanded(
-                      //   child: GridView.count(
-                      //     shrinkWrap: true,
-                      //     scrollDirection: Axis.horizontal,
-                      //     // childAspectRatio: (1.1 / 1.2),
-                      //
-                      //     crossAxisCount: 1,
-                      //     // 2 columns in each row
-                      //     children: List.generate(category.length, (i) {
-                      //       return InkWell(
-                      //         onTap: () {
-                      //           setState(() {
-                      //             Navigator.push(
-                      //                 context,
-                      //                 MaterialPageRoute(
-                      //                     builder: (context) =>
-                      //                         const MyCourses()));
-                      //           });
-                      //         },
-                      //         child: Container(
-                      //           margin: const EdgeInsets.all(6.0),
-                      //           // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      //           decoration: BoxDecoration(
-                      //             color: Colors.white,
-                      //             borderRadius: BorderRadius.circular(10.0),
-                      //             boxShadow: [
-                      //               BoxShadow(
-                      //                 color: Colors.grey.withOpacity(0.1),
-                      //                 spreadRadius: 2,
-                      //                 blurRadius: 5,
-                      //                 offset: const Offset(
-                      //                     0, 3), // changes position of shadow
-                      //               ),
-                      //             ],
-                      //           ),
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceEvenly,
-                      //             children: <Widget>[
-                      //               Expanded(
-                      //                 child: Container(
-                      //                   decoration: BoxDecoration(
-                      //                       image: DecorationImage(
-                      //                         fit: BoxFit.cover,
-                      //                         image: AssetImage(
-                      //                           "assets/images/two${i + 1}.png",
-                      //                         ),
-                      //                       ),
-                      //                       borderRadius:
-                      //                           BorderRadius.circular(10)),
-                      //                 ),
-                      //               ),
-                      //               const SizedBox(height: 10),
-                      //               Row(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                 children: <Widget>[
-                      //                   Expanded(
-                      //                     child: ListTile(
-                      //                       title: Text(
-                      //                         category[i],
-                      //                         textAlign: TextAlign.left,
-                      //                         style: const TextStyle(
-                      //                           color: Colors.blue,
-                      //                           fontSize: 16.0.sp,
-                      //                           fontWeight: FontWeight.bold,
-                      //                         ),
-                      //                       ),
-                      //                       subtitle: Text(
-                      //                         discription[i],
-                      //                         textAlign: TextAlign.left,
-                      //                         style: const TextStyle(
-                      //                             fontSize: 10.0
-                      //                             // fontWeight: FontWeight.bold,
-                      //                             ),
-                      //                       ),
-                      //                       trailing: Text(
-                      //                         price[i],
-                      //                         textAlign: TextAlign.right,
-                      //                         style: TextStyle(
-                      //                             color: Colors.red,
-                      //                             fontSize: 10.0.sp,
-                      //                             fontWeight: FontWeight.bold),
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               const SizedBox(height:15.h),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       );
-                      //     }),
-                      //   ),
-                      // ),
                       const SizedBox(height: 20),
                       Text(
                         'Featured Courses',
@@ -439,7 +352,8 @@ class _UserHomeState extends State<UserHome> {
                         ),
                       ),
                       CarouselSlider.builder(
-                          itemCount: category.length,
+                          itemCount:
+                              listofData.data!.featuredCourseList!.length,
                           options: CarouselOptions(
                             height: MediaQuery.of(context).size.height / 1.9,
                             aspectRatio: 2,
@@ -458,6 +372,9 @@ class _UserHomeState extends State<UserHome> {
                             scrollDirection: Axis.horizontal,
                           ),
                           itemBuilder: (context, index, _) {
+                            final itemCurrentFeaturedCourses =
+                                listofData.data!.popularCourseList![index];
+                            // final priceType =itemCurrentFeaturedCourses.priceType;/
                             return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -484,15 +401,18 @@ class _UserHomeState extends State<UserHome> {
                                                 BorderRadius.circular(10),
                                             image: DecorationImage(
                                                 fit: BoxFit.cover,
-                                                image: AssetImage(
-                                                    "assets/images/two${index + 1}.png")),
+                                                image: NetworkImage(
+                                                    itemCurrentFeaturedCourses
+                                                        .courseImage
+                                                        .toString())),
                                           )),
                                       const SizedBox(height: 10),
                                       Column(
                                         children: <Widget>[
                                           ListTile(
                                             title: Text(
-                                              category[index],
+                                              itemCurrentFeaturedCourses.course
+                                                  .toString(),
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 color: AppColor.headingColor,
@@ -510,7 +430,9 @@ class _UserHomeState extends State<UserHome> {
                                                       .spaceBetween,
                                               children: <Widget>[
                                                 Text(
-                                                  price[index],
+                                                  itemCurrentFeaturedCourses
+                                                      .price
+                                                      .toString(),
                                                   style: TextStyle(
                                                     color:
                                                         AppColor.priceTextColor,

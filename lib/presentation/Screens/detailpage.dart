@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import 'course.dart';
+import 'courseScreen/course.dart';
 import 'pdfs.dart';
 
 class DetailPage extends StatefulWidget {

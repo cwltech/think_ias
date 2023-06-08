@@ -129,22 +129,30 @@ class CourseList {
   int? id;
   String? courseImage;
   String? course;
+  int? priceType;
+  String? price;
 
   CourseList({
     this.id,
     this.courseImage,
     this.course,
+    this.priceType,
+    this.price,
   });
 
   factory CourseList.fromJson(Map<String, dynamic> json) => CourseList(
         id: json["id"],
         courseImage: json["course_image"],
         course: json["course"],
+        priceType: json["price_type"],
+        price: json["price"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "course_image": courseImage,
         "course": course,
+        "price_type": priceType,
+        "price": price,
       };
 }

@@ -1,10 +1,11 @@
 // for category......
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget firstlist(String imgVal, String text) {
+Widget firstList(String imgVal, String text, BuildContext context) {
   return SizedBox(
-    width: 80.0,
+    width: 80.0.w,
     child: Column(
       children: <Widget>[
         Padding(
@@ -12,18 +13,21 @@ Widget firstlist(String imgVal, String text) {
           child: CircleAvatar(
             foregroundColor: Colors.amber,
             backgroundColor: Colors.white,
-            radius: 25.0,
-            backgroundImage: AssetImage(
+            radius: 25.0.r,
+            backgroundImage: NetworkImage(
               imgVal,
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
         Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 12.0,
+          maxLines: 2,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 10.0.sp,
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
